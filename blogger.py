@@ -38,14 +38,18 @@ def show_entries():
 	return render_template('show_entries.html', entries=entries)
 
 #add a post
-@app.route('/add', methods=['POST'])
+@app.route('/add', methods=['GET', 'POST'])
 def add_entry():
-	if not session.get('logged_in'):
-		abort(401)
-	g.db.execute('insert into entries (title, text) values (?,?)', [request.form['title'], request.form['text']])
-	g.db.commit()
-	flash('New entry was sucessfully posted')
-	return redirect(url_for('show_entries'))
+	if request.method == 'GET':
+		if not session.get('logged_in'):
+			flash('You need to be logged in to do that')
+			return redirect(url_for('show_entries'))
+		return render_template('add_post.html')
+	if request.method == 'POST':
+		g.db.execute('insert into entries (title, text) values (?,?)', [request.form['title'], request.form['text']])
+		g.db.commit()
+		flash('New entry was sucessfully posted')
+		return redirect(url_for('show_entries'))
 
 #login and out methods
 @app.route('/login', methods=['GET', 'POST'])
