@@ -3,12 +3,12 @@ import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
+from flask_sqlalchemy import SQLAlchemy
 
 # create our little application
 app = Flask(__name__)
 #application configuration
-config = os.path.join(app.root_path, 'blogger.config')
-app.config.from_pyfile(config)
+app.config.from_pyfile('blogger.config')
 
 #Connect and build database functions
 def connect_db():
