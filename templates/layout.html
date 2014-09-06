@@ -1,18 +1,46 @@
 <!doctype html>
-<title>blogger</title>
+<html>
+<head>
+<title>The Random Ramblings</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/kickstart.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/overrides.css') }}">
 <script src="{{ url_for('static', filename='js/kickstart.js') }}"></script>
+</head>
+<body>
+<div class="callout callout-top clearfix">
+	<div class="grid">
+		<div class="col_12">
+			<div class="col_4">
+			<img src='' />
+			</div>
+			<div class"col_8 right">
+				<h1>The Random Ramblings</h1>
+				<h6 class="right tagline">lost? dazed? confused? dont come here then as this aint goona help!!</h6>
+			</div>
+			<hr class="alt2" />
+		</div>
+	</div>
+</div>
 <div class="grid">
 	<div class="col_12">
-		<h1>Blogger></h1>
+		<ul class="menu">
+			<li><a href="">Home</a></li>
+			<li><a href="">About</a></li>
+			<li><a href="">Buy Stuff</a></li>
+		</ul>
 	</div>
-	<div class="col_3">
-	</div>
+</div>
+<div class="grid">
 	<div class="col_9">
 		{% for message in get_flashed_messages() %}
 			<div class=flash>{{ message }}</div>
 		{% endfor %}
 		{% block body %}{% endblock %}
 	</div>
+	<div class="col_3">
+		Blogroll
+	</div>
 </div>
+</body>
+</html>
