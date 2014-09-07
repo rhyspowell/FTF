@@ -1,8 +1,7 @@
-{% extends "layout.html" %}
-{% block menu %}
+
+
 	<ul class="menu">
-		<li><a href="">Home</a></li>
-		<li><a href="">About</a></li>
-		<li><a href="">Buy Stuff</a></li>
+		{% for item in menu_items %}
+		<li><a href="{{ item.url }}">{{ item.name }}</a></li>
+		{% endfor %}
 	</ul>
-{% endblock %}

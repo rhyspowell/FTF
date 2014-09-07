@@ -35,7 +35,9 @@ def teardown_request(exception):
 def show_entries():
 	cur = g.db.execute('select title, text from entries order by id desc')
 	entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
-	return render_template('show_entries.html', entries=entries)
+	cur = g.db.execute('select name, url from menu')
+	menu_items = [dict(name=row[0], url=row[1]) for row in cur.fetchall()]
+	return render_template('show_entries.html', entries=entries, menu_items=menu_items)
 
 #add a post
 @app.route('/add', methods=['GET', 'POST'])
