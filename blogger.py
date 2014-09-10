@@ -40,29 +40,6 @@ class Entries(db.Model):
 	def __repr__(self):
 		return '<Post %r>' % self.title
 
-
-#Connect and build database functions
-#def connect_db():
-	#return sqlite3.connect(app.config['DATABASE'])
-#	return SQLAlchemy(app.config['DATABASE'])
-
-def init_db():
-	#with closing(connect_db()) as db:
-	#	with app.open_resource('schema.sql', mode='r') as f:
-	#		db.cursor().executescript(f.read())
-	#	db.commit()
-	db.create_all()
-
-#@app.before_request
-#def before_request():
-#	g.db = connect_db()
-
-#@app.teardown_request
-#def teardown_request(exception):
-#	db = getattr(g, 'db', None)
-#	if db is not None:
-#		db.close()
-
 #main page route
 @app.route('/')
 def show_entries():
