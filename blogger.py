@@ -87,16 +87,15 @@ class Sections(db.Model):
 #Drop all the admin stuff in first
 #view admin page
 @app.route('/admin')
+@login_required
 def admin():
 	sections = Sections.query.all()
 	return render_template('/admin/admin.html', sections=sections)
 
 @app.route('/admin/add-section')
+@login_required
 def add_section():
 	if request.method == 'GET':
-		if not session.get('logged_in'):
-			flash('You need to be logged in to do that')
-			return redirect(url_for('show_entries'))
 		return render_template('admin/add_author.html')
 	if request.method =='POST':
 		author = Authors(request.form['name'])
