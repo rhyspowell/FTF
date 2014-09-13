@@ -1,4 +1,4 @@
-from flask.ext.sqlalchemy import SQLALchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 '''
 Note that we have not initialized our flask.ext.sqlalchemy object
 with any application so these models are not bound to this
