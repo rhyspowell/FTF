@@ -4,7 +4,7 @@ from flask.ext.login import login_required, login_user, logout_user
 from .forms import LoginForm, RegistrationForm
 from .models import User
 
-admin = Blueprint("admin", __name__)
+admin = Blueprint("admin", __name__, static_folder='static', static_url_path='/static/')
 
 @admin.route('/admin/add-section')
 @login_required

@@ -5,7 +5,7 @@ from blogger.data import query_to_list
 from blogger.admin.models import Entries
 
 
-blogger = Blueprint("blogger", __name__)
+blogger = Blueprint("blogger", __name__, static_folder='static')
 
 
 #main page route

@@ -1,4 +1,14 @@
-
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/sites">Sites</a></li>
+<li>
+        {% if current_user.is_anonymous() %}
+        <a href="{{url_for('admin.register')}}">Register</a> / <a href="{{url_for('admin.login')}}">Log In</a>
+        {% else %}
+        Logged in as {{current_user.name}} <a href="{{url_for('admin.logout')}}">Logout</a>
+        {% endif %}
+</li>
+</ul>
 
 	<ul class="menu">
 		{% for item in menu_items %}
