@@ -63,10 +63,8 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User()
+        user = User.create(**form.data)
         form.populate_obj(user)
-        db.session.add(user)
-        db.session.commit()
         login_user(user)
-        return redirect(url_for('tracking.index'))
+        return redirect(url_for('blogger.show_entries'))
     return render_template('register.html', form=form)
