@@ -16,3 +16,6 @@ PASSWORD='admin'
 
 #Forms secret key
 WTF_CRSF_SECRET_KEY = os.urandom(24)
+
+#pagination
+POSTS_PER_PAGE = 10

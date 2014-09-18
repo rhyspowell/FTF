@@ -9,4 +9,4 @@ if __name__ == "__main__":
     # context right now, we will instead pass in the configured application
     # into our `create_all` call.
     db.create_all(app=app)
-    app.run()
+    app.run(host='0.0.0.0')
