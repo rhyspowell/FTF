@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask.ext.login import login_required, login_user, logout_user
 
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, AddEntryForm
 from .models import User
 
 admin = Blueprint("admin", __name__, static_folder='static', static_url_path='/static/')
@@ -22,16 +22,13 @@ def add_section():
 @admin.route('/add', methods=['GET', 'POST'])
 @login_required
 def add_entry():
-    if request.method == 'GET':
-        if not session.get('logged_in'):
-            flash('You need to be logged in to do that')
-            return redirect(url_for('show_entries'))
-        return render_template('add_post.html')
-    if request.method == 'POST':
-        g.db.execute('insert into entries (title, text) values (?,?)', [request.form['title'], request.form['text']])
-        g.db.commit()
+    form = AddEntryForm()
+    if form.validate_on_submit():
+        entry = Entries.create(**form.data)
+        form.populate_obj(entry)
         flash('New entry was sucessfully posted')
         return redirect(url_for('show_entries'))
+    return render_template('admin/add_post.html', form=form)
 
 #login and out methods
 #@lm.user_loader

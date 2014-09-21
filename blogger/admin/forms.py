@@ -8,7 +8,7 @@ from .models import User
 
 class LoginForm(Form):
     email = fields.StringField(validators=[InputRequired(), Email()])
-    password = fields.StringField(validators=[InputRequired()])
+    password = fields.PasswordField(validators=[InputRequired()])
 
     # WTForms supports "inline" validators
     # which are methods of our `Form` subclass
@@ -33,9 +33,16 @@ class LoginForm(Form):
 class RegistrationForm(Form):
     name = fields.StringField("Display Name")
     email = fields.StringField(validators=[InputRequired(), Email()])
-    password = fields.StringField(validators=[InputRequired()])
+    password = fields.PasswordField(validators=[InputRequired()])
 
     def validate_email(form, field):
         user = User.query.filter(User.email == field.data).first()
         if user is not None:
             raise ValidationError("A user with that email already exists")
+
+class AddEntryForm(Form):
+    title = fields.TextField("Title")
+    text = fields.TextAreaField("Text")
+    published = fields.BooleanField("Do you want this to be published")
+    #author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    published_time = fields.StringField("Set published date")

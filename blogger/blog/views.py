@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_required
 from blogger.data import query_to_list, db
 from blogger.admin.models import Entries
 
-posts_per_page = 20
+posts_per_page = 2
 blogger = Blueprint("blogger", __name__, static_folder='static')
 
 
