@@ -2,7 +2,7 @@
 from flask.ext.login import LoginManager, login_user , logout_user , current_user , login_required
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy, Pagination
 
 # create our little application
 app = Flask(__name__)
