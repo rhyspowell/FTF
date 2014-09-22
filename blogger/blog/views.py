@@ -4,19 +4,22 @@ from flask.ext.login import current_user, login_required
 from blogger.data import query_to_list, db
 from blogger.admin.models import Entries
 
-posts_per_page = 2
+POSTS_PER_PAGE = 2
 blogger = Blueprint("blogger", __name__, static_folder='static')
 
 
 #main page route
 @blogger.route('/')
+@blogger.route('/<int:page>')
 def show_entries(page = 1):
     #cur = g.db.execute('select title, text from entries order by id desc')
     #entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     #cur = g.db.execute('select name, url from menu')
     #menu_items = [dict(name=row[0], url=row[1]) for row in cur.fetchall()]
-    #entries = Entries.query.all().paginate(page, POSTS_PER_PAGE, False).items
-    entries = Entries.query.paginate(page, posts_per_page, False).items
+    #entries = Entries.query.paginate(page, POSTS_PER_PAGE, False)
+    entries = Entries.query.all()
+    #posts = entries.posts.paginate(page, POSTS_PER_PAGE, False)
+    #entries = Entries.query.paginate(page, posts_per_page, False).items
     #menu_items = Menu_Items.query.all()
     #data = query_to_list(entries)
     #results = []

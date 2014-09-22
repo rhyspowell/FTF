@@ -18,4 +18,4 @@ PASSWORD='admin'
 WTF_CRSF_SECRET_KEY = os.urandom(24)
 
 #pagination
-POSTS_PER_PAGE = 10
+POSTS_PER_PAGE = 2

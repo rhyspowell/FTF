@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   <ul class=entries>
-  {% for entry in entries %}
+  {% for entry in entries.items %}
   <div class="col_1">
     <h4><i class="icon-pencil"></i></h4>
   </div>
@@ -16,15 +16,6 @@
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}
   </ul>
-  {% if entries.has_prev %}
-    <a href="{{ url_for('show_entries', page = entries.prev_num) }}"><< Newer posts</a>
-  {% else %}
-    << Newer posts
-  {% endif %}
-  |
-  {% if entries.has_next %}
-    <a href="{{ url_for('show_entries', page = entries.next_num) }}">Older posts >></a>
-  {% else %}
-    Older posts >>
-  {% endif %}
+{% if entries.has_prev %}<a href="{{ url_for('show_entries', page = entries.prev_num) }}"><< Newer posts</a>{% else %}<< Newer posts{% endif %} |
+{% if entries.has_next %}  <a href="{{ url_for('show_entries', page = entries.next_num) }}">Older posts >></a>{% else %}Older posts >>{% endif %}
 {% endblock %}

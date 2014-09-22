@@ -1,5 +1,5 @@
 # flask_tracking/data.py
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy, Pagination
 
 db = SQLAlchemy()
 
