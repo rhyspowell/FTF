@@ -7,7 +7,7 @@ from flask.ext.sqlalchemy import SQLAlchemy, Pagination
 # create our little application
 app = Flask(__name__)
 #application configuration
-app.config.from_pyfile('blogger.config')
+app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
 #flask-login start
