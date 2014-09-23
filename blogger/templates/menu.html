@@ -1,0 +1,13 @@
+	<ul class="menu">
+    <div class="col_6">
+      <li><a href="/">Home</a></li>
+		  {% for item in menuitems %}
+		    <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+		  {% endfor %}
+    </div>
+  </ul>
+    <div class="col_6">
+      {% if current_user.name != Null %}
+          Welcome {{ current_user.name }}<a href="{{url_for('admin.adminpage')}}"> Admin</a><a href="{{url_for('admin.logout')}}"> Logout</a>
+      {% endif %}
+    </div>

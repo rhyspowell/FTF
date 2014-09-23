@@ -6,9 +6,14 @@ from .models import User
 
 admin = Blueprint("admin", __name__, static_folder='static', static_url_path='/static/')
 
+@admin.route('/admin')
+@login_required
+def adminpage():
+    return redirect(url_for('blogger.show_entries'))
+
 @admin.route('/admin/add-section')
 @login_required
-def add_section():
+def addsection():
     if request.method == 'GET':
         return render_template('admin/add_author.html')
     if request.method =='POST':
@@ -19,9 +24,9 @@ def add_section():
         return redirect(url_for('show_entries'))
 
 #add a post
-@admin.route('/add', methods=['GET', 'POST'])
+@admin.route('/admin/add', methods=['GET', 'POST'])
 @login_required
-def add_entry():
+def addentry():
     form = AddEntryForm()
     if form.validate_on_submit():
         entry = Entries.create(**form.data)

@@ -70,3 +70,15 @@ class Entries(UserMixin, db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.title
+
+class MenuItems(CRUDMixin, db.Model):
+    id = db.Column(db.Integer, primary_key = True, autoincrement=True)
+    name = db.Column(db.String(30))
+    url = db.Column(db.String(128))
+
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+
+    def __repr__(self):
+        return '<Post %r>' % self.name
