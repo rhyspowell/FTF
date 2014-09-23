@@ -1,4 +1,5 @@
 from flask import abort, Blueprint, flash, jsonify, Markup, redirect, render_template, request, url_for
+
 from flask.ext.login import current_user, login_required
 
 from blogger.data import query_to_list, db
@@ -13,7 +14,7 @@ blogger = Blueprint("blogger", __name__, static_folder='static')
 @blogger.route('/<int:page>')
 def show_entries(page=1):
     pages = Entries.query.paginate(page, POSTS_PER_PAGE, False)
-    entries = Entries.query.paginate(page, POSTS_PER_PAGE, False).items
+    entries = Entries.query.order_by(Entries.publishedtime.desc()).paginate(page, POSTS_PER_PAGE, False).items
     menuitems = MenuItems.query.all()
 
     return render_template('show_entries.html', entries=entries, pages=pages, menuitems=menuitems)

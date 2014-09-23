@@ -1,3 +1,4 @@
+import datetime
 from random import SystemRandom
 
 from backports.pbkdf2 import pbkdf2_hmac, compare_digest
@@ -52,21 +53,27 @@ class User(UserMixin, CRUDMixin, db.Model):
     def __repr__(self):
         return "<User #{:d}>".format(self.id)
 
-class Entries(UserMixin, db.Model):
+class Entries(UserMixin, CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True,)
     title = db.Column(db.String(128))
     text = db.Column(db.Text)
-    published = db.Column(db.Boolean)
-    author = db.Column(db.Integer, db.ForeignKey('users.id'))
-    published_time = db.Column(db.DateTime)
+    #published = db.Column(db.Boolean)
+    #author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    publishedtime = db.Column(db.DateTime)
 
-    def __init__(self, title, text, author, published_time=None):
+    #def __init__(self, title, text, author, published_time=None):
+    #    self.title = title
+    #    self.text = text
+    #    if published_time is None:
+    #        published_time = datetime.utcnow()
+    #    self.published_time = published_time
+    #    self.author = author
+
+    def __init__(self, title, text, publishedtime=None):
         self.title = title
         self.text = text
-        if published_time is None:
-            published_time = datetime.utcnow()
-        self.published_time = published_time
-        self.author = author
+        if self.publishedtime is None:
+            self.publishedtime = datetime.datetime.utcnow()
 
     def __repr__(self):
         return '<Post %r>' % self.title

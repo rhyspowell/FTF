@@ -3,7 +3,7 @@ from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from wtforms import fields
 from wtforms.validators import Email, InputRequired, ValidationError
 
-from .models import User
+from .models import User, Entries
 
 
 class LoginForm(Form):
@@ -41,8 +41,8 @@ class RegistrationForm(Form):
             raise ValidationError("A user with that email already exists")
 
 class AddEntryForm(Form):
-    title = fields.TextField("Title")
-    text = fields.TextAreaField("Text")
-    published = fields.BooleanField("Do you want this to be published")
+    title = fields.TextField(validators=[InputRequired()])
+    text = fields.TextAreaField(validators=[InputRequired()])
+    #published = fields.BooleanField("Publish?")
     #author = db.Column(db.Integer, db.ForeignKey('users.id'))
-    published_time = fields.StringField("Set published date")
+    #publishedtime = fields.StringField()
