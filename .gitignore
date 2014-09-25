@@ -1,3 +1,5 @@
 *.config
 *.pyc
 venv
+config.py
+*.pdf

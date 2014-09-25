@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+  <ul class=entries>
+  {% for entry in entries %}
+    {% include 'entries.html' %}
+  {% endfor %}
+  </ul>
+{% if pages.has_prev %}
+<a href="{{ url_for('.show_entries', page = pages.prev_num) }}">< Older posts</a>{% endif %}
+{% if pages.has_next %}  <a href="{{ url_for('.show_entries', page = pages.next_num) }}">Newer posts ></a>{% endif %}
+{% endblock %}

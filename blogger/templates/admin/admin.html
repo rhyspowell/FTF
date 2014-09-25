@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% for item in menuitems %}
+		<li><a href="{{ item.url }}">{{ item.name }}</a></li>
+		{% endfor %}
+    {% for posts in notyetpublished %}
+    <li><a href="{{ entry.id }}">{{ entry.title }}</a></li>
+    {% endfor %}
+    {% for posts in publishedentries %}
+    <li><a href="{{ entry.id }}">{{ entry.title }}</a></li>
+    {% endfor %}
+{% endblock %}
