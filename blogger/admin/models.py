@@ -57,8 +57,8 @@ class Entries(UserMixin, CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True,)
     title = db.Column(db.String(128))
     text = db.Column(db.Text)
-    #published = db.Column(db.Boolean)
-    #author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    status = db.Column(db.Boolean)
+    author = db.Column(db.Integer, db.ForeignKey('users.id'))
     publishedtime = db.Column(db.DateTime)
 
     #def __init__(self, title, text, author, published_time=None):
@@ -69,9 +69,12 @@ class Entries(UserMixin, CRUDMixin, db.Model):
     #    self.published_time = published_time
     #    self.author = author
 
-    def __init__(self, title, text, publishedtime=None):
+    def __init__(self, title, text, status, author=None, publishedtime=None):
         self.title = title
         self.text = text
+        self.status = status
+        if self.author is None:
+            self.author = 1
         if self.publishedtime is None:
             self.publishedtime = datetime.datetime.utcnow()
 

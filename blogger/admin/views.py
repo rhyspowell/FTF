@@ -2,14 +2,18 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask.ext.login import login_required, login_user, logout_user
 
 from .forms import LoginForm, RegistrationForm, AddEntryForm
-from .models import User, Entries
+from .models import User, Entries, MenuItems
 
 admin = Blueprint("admin", __name__, static_folder='static', static_url_path='/static/')
 
 @admin.route('/admin')
 @login_required
 def adminpage():
-    return redirect(url_for('blogger.show_entries'))
+    notyetpublished = Entries.query.filter_by(status = 0).order_by(Entries.publishedtime.desc()).items()
+    publishedentries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc()).items()
+    menuitems = MenuItems.query.all()
+
+    return render_template('admin/admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)
 
 @admin.route('/admin/add-section')
 @login_required

@@ -4,6 +4,7 @@ from wtforms import fields
 from wtforms.validators import Email, InputRequired, ValidationError
 
 from .models import User, Entries
+from flask.ext.login import current_user
 
 
 class LoginForm(Form):
@@ -43,6 +44,7 @@ class RegistrationForm(Form):
 class AddEntryForm(Form):
     title = fields.TextField(validators=[InputRequired()])
     text = fields.TextAreaField(validators=[InputRequired()])
-    #published = fields.BooleanField("Publish?")
+    status = fields.BooleanField("Publish?")
     #author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    #author = 1
     #publishedtime = fields.StringField()
