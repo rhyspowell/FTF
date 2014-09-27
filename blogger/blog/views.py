@@ -7,7 +7,7 @@ from blogger.admin.models import Entries, MenuItems
 
 POSTS_PER_PAGE = 5
 blogger = Blueprint("blogger", __name__, static_folder='static')
-TITLE = 'The Random Randoms'
+TITLE = 'The Random Ramblings'
 
 
 #main page route
