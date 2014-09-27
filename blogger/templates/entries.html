@@ -1,9 +1,11 @@
   <div class="col_1">
     <h4><i class="icon-pencil"></i></h4>
   </div>
+  <a href="{{ url_for('.showpost', posttitle=entry.title) }}">
   <div class="col_11">
     <h2>{{ entry.title }}</h2>
   </div>
+  </a>
   <div class="col_12">
     <p>{{ entry.text|safe }}</p>
   </div>
