@@ -9,8 +9,8 @@ admin = Blueprint("admin", __name__, static_folder='static', static_url_path='/s
 @admin.route('/admin')
 @login_required
 def adminpage():
-    notyetpublished = Entries.query.filter_by(status = 0).order_by(Entries.publishedtime.desc()).items()
-    publishedentries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc()).items()
+    notyetpublished = Entries.query.filter_by(status = 0).order_by(Entries.publishedtime.desc())
+    publishedentries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc())
     menuitems = MenuItems.query.all()
 
     return render_template('admin/admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)

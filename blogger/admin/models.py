@@ -56,6 +56,7 @@ class User(UserMixin, CRUDMixin, db.Model):
 class Entries(UserMixin, CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True,)
     title = db.Column(db.String(128))
+    postlink = db.Column(db.String(128))
     text = db.Column(db.Text)
     status = db.Column(db.Boolean)
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -77,6 +78,7 @@ class Entries(UserMixin, CRUDMixin, db.Model):
             self.author = 1
         if self.publishedtime is None:
             self.publishedtime = datetime.datetime.utcnow()
+        self.postlink = title.replace(" ", "-")
 
     def __repr__(self):
         return '<Post %r>' % self.title

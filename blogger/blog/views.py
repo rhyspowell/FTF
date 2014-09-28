@@ -13,18 +13,16 @@ TITLE = 'The Random Ramblings'
 #main page route
 @blogger.route('/')
 @blogger.route('/<int:page>')
-def show_entries(page=1):
+@blogger.route('/<postlink>')
+def show_entries(page=1, postlink=''):
     title = TITLE
     pages = Entries.query.paginate(page, POSTS_PER_PAGE, False)
-    entries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc()).paginate(page, POSTS_PER_PAGE, False).items
+
+    if postlink == '':
+        entries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc()).paginate(page, POSTS_PER_PAGE, False).items
+    else:
+        entries = Entries.query.filter_by(postlink = postlink)
+        #raise Exception(postlink)
     menuitems = MenuItems.query.all()
 
     return render_template('show_entries.html', entries=entries, pages=pages, menuitems=menuitems, title=title)
-
-@blogger.route('/<posttitle>')
-def showpost(posttitle):
-    title = TITLE
-    entries = Entries.query.filter_by(title = posttitle)
-    menuitems = MenuItems.query.all()
-
-    return render_template('show_entries.html', entries=entries, title=title, pages=1, menuitems=menuitems )
