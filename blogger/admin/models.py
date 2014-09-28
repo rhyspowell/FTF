@@ -70,14 +70,16 @@ class Entries(UserMixin, CRUDMixin, db.Model):
     #    self.published_time = published_time
     #    self.author = author
 
-    def __init__(self, title, text, status, author=None, publishedtime=None):
+    def __init__(self, title, text, status, publishedtime, author=None ):
         self.title = title
         self.text = text
         self.status = status
         if self.author is None:
             self.author = 1
-        if self.publishedtime is None:
+        if publishedtime == '':
             self.publishedtime = datetime.datetime.utcnow()
+        else:
+            self.publishedtime = publishedtime
         self.postlink = title.replace(" ", "-")
 
     def __repr__(self):

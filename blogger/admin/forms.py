@@ -47,4 +47,4 @@ class AddEntryForm(Form):
     status = fields.BooleanField("Publish?")
     #author = db.Column(db.Integer, db.ForeignKey('users.id'))
     #author = 1
-    #publishedtime = fields.StringField()
+    publishedtime = fields.StringField()
