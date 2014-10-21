@@ -2,8 +2,8 @@ from flask import abort, Blueprint, flash, jsonify, Markup, redirect, render_tem
 
 from flask.ext.login import current_user, login_required
 
-from blogger.data import query_to_list, db
-from blogger.admin.models import Entries, MenuItems
+from ftf.data import query_to_list, db
+from ftf.admin.models import Entries, MenuItems
 
 POSTS_PER_PAGE = 5
 blogger = Blueprint("blogger", __name__, static_folder='static')

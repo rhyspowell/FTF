@@ -1,6 +1,6 @@
 # run.py
 #!/usr/bin/env python
-from blogger import app, db
+from ftf import app, db
 
 if __name__ == "__main__":
     app.debug = True

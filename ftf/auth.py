@@ -1,6 +1,6 @@
 from flask.ext.login import AnonymousUserMixin, LoginManager
 
-from blogger.admin.models import User
+from ftf.admin.models import User
 
 login_manager = LoginManager()
 
