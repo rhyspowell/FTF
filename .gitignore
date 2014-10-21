@@ -1,6 +1,5 @@
-*.config
 *.pyc
 venv
-config.py
+instance/config.py
 *.pdf
 *.sql
