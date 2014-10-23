@@ -1,10 +1,33 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask.ext.login import login_required, login_user, logout_user
+from flask import abort, Blueprint, flash, jsonify, Markup, redirect, render_template, request, url_for
+from flask.ext.login import current_user, login_required, login_user, logout_user
 
 from .forms import LoginForm, RegistrationForm, AddEntryForm
 from .models import User, Entries, MenuItems
 
+from ftf.data import query_to_list, db
+
+
+POSTS_PER_PAGE = 5
+TITLE = 'The Random Ramblings'
+
 admin = Blueprint("admin", __name__, static_folder='static', static_url_path='/static/')
+
+#main page route
+@admin.route('/')
+@admin.route('/<int:page>')
+@admin.route('/<postlink>')
+def show_entries(page=1, postlink=''):
+    title = TITLE
+    pages = Entries.query.paginate(page, POSTS_PER_PAGE, False)
+
+    if postlink == '':
+        entries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc()).paginate(page, POSTS_PER_PAGE, False).items
+    else:
+        entries = Entries.query.filter_by(postlink = postlink)
+        #raise Exception(postlink)
+    menuitems = MenuItems.query.all()
+
+    return render_template('show_entries.html', entries=entries, pages=pages, menuitems=menuitems, title=title)
 
 @admin.route('/admin')
 @login_required
@@ -53,7 +76,7 @@ def login():
         # associated with the current session.
         login_user(form.user)
         flash("Logged in successfully.")
-        return redirect(request.args.get("next") or url_for("blogger.show_entries"))
+        return redirect(request.args.get("next") or url_for("admin.show_entries"))
     return render_template('login.html', form=form)
 
 @admin.route('/logout/')
@@ -62,7 +85,7 @@ def logout():
     # Tell Flask-Login to destroy the
     # session->User connection for this session.
     logout_user()
-    return redirect(url_for('blogger.show_entries'))
+    return redirect(url_for('admin.show_entries'))
 
 @admin.route('/register/', methods=('GET', 'POST'))
 #@login_required
@@ -72,5 +95,5 @@ def register():
         user = User.create(**form.data)
         form.populate_obj(user)
         login_user(user)
-        return redirect(url_for('blogger.show_entries'))
+        return redirect(url_for('admin.show_entries'))
     return render_template('register.html', form=form)
