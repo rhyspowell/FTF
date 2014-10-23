@@ -1,5 +1,5 @@
 import os
-import blogger
+import ftf
 import unittest
 import tempfile
 
@@ -7,10 +7,10 @@ class BloggerTestCase(unittest.TestCase):
 
 #Sort out the database
 	def setUp(self):
-		self.db_fd, blogger.app.config['DATABASE'] = tempfile.mkstemp()
-		blogger.app.config['TESTING'] = True
-		self.app = blogger.app.test_client()
-		blogger.init_db()
+		self.db_fd, ftf.app.config['DATABASE'] = tempfile.mkstemp()
+		ftf.app.config['TESTING'] = True
+		self.app = ftf.app.test_client()
+		ftf.init_db()
 
 	def tearDown(self):
 		os.close(self.db_fd)
