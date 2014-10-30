@@ -48,3 +48,8 @@ class AddEntryForm(Form):
     #author = db.Column(db.Integer, db.ForeignKey('users.id'))
     #author = 1
     publishedtime = fields.StringField()
+
+    def validate_title(form, field):
+        title = Entries.query.filter(Entries.title == field.data).first()
+        if title is not None:
+            raise ValidationError("This title already exists")
