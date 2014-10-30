@@ -6,7 +6,7 @@ import os
 SQLALCHEMY_DATABASE_URI='mysql://root:password@127.0.0.1/ftf'
 
 #Debug information
-DEBUG=True
+DEBUG=False
 
 #generate the application randomkey on startup
 SECRET_KEY= os.urandom(24)

@@ -2,11 +2,11 @@ from flask import Flask
 
 from .auth import login_manager
 from .data import db
-#from .blog.views import blogger
-from .admin.views import admin
+from .views import ftf
 
 app = Flask(__name__)
 app.config.from_object('config')
+app.config.from_pyfile('instance/config.py')
 
 
 # Add the `constants` variable to all Jinja templates.
@@ -18,5 +18,4 @@ db.init_app(app)
 
 login_manager.init_app(app)
 
-#app.register_blueprint(blogger)
-app.register_blueprint(admin)
+app.register_blueprint(ftf)

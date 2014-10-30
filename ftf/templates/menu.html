@@ -8,6 +8,6 @@
   </ul>
     <div class="col_6">
       {% if current_user.name != Null %}
-          Welcome {{ current_user.name }}<a href="{{url_for('admin.adminpage')}}">| Admin </a><a href="{{url_for('admin.addentry')}}">| Add post </a><a href="{{url_for('admin.logout')}}">| Logout</a>
+          Welcome {{ current_user.name }}<a href="{{url_for('.adminpage')}}">| Admin </a><a href="{{url_for('.addentry')}}">| Add post </a><a href="{{url_for('.logout')}}">| Logout</a>
       {% endif %}
     </div>

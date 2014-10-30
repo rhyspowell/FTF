@@ -1,6 +1,6 @@
 from flask.ext.login import AnonymousUserMixin, LoginManager
 
-from ftf.admin.models import User
+from .models import User
 
 login_manager = LoginManager()
 
@@ -10,7 +10,7 @@ class AnonymousUser(AnonymousUserMixin):
 
 
 login_manager.anonymous_user = AnonymousUser
-login_manager.login_view = "admin.login"
+login_manager.login_view = ".login"
 
 
 @login_manager.user_loader
