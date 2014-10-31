@@ -31,8 +31,10 @@ def show_entries(page=1, postlink=''):
 @ftf.route('/admin')
 @login_required
 def adminpage():
-    notyetpublished = Entries.query.filter_by(status = 0).order_by(Entries.publishedtime.desc())
-    publishedentries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc())
+    notyetpublished = Entries.query.filter(Entries.status == 0)
+    #.order_by(Entries.publishedtime.desc())
+    publishedentries = Entries.query.filter(Entries.status == 1)
+    #.order_by(Entries.publishedtime.desc())
     menuitems = MenuItems.query.all()
 
     return render_template('admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)
