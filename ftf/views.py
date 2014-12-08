@@ -5,6 +5,8 @@ from .forms import LoginForm, RegistrationForm, AddEntryForm
 from .models import User, Entries, MenuItems
 from .data import query_to_list, db
 
+import datetime
+
 
 POSTS_PER_PAGE = 5
 TITLE = 'The Random Ramblings'
@@ -20,7 +22,7 @@ def show_entries(page=1, postlink=''):
     pages = Entries.query.paginate(page, POSTS_PER_PAGE, False)
 
     if postlink == '':
-        entries = Entries.query.filter_by(status = 1).order_by(Entries.publishedtime.desc()).paginate(page, POSTS_PER_PAGE, False).items
+        entries = Entries.query.filter(Entries.status == 1, Entries.publishedtime < datetime.datetime.now()).order_by(Entries.publishedtime.desc()).paginate(page, POSTS_PER_PAGE, False).items
     else:
         entries = Entries.query.filter_by(postlink = postlink)
         #raise Exception(postlink)
