@@ -33,8 +33,6 @@ class CRUDMixin(object):
     def get(cls, id):
         return cls.query.get(id)
 
-    # We will also proxy Flask-SqlAlchemy's get_or_44
-    # for symmetry
     @classmethod
     def get_or_404(cls, id):
         return cls.query.get_or_404(id)
