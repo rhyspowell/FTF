@@ -41,6 +41,12 @@ def adminpage():
 
     return render_template('admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)
 
+@ftf.route('/admin/<int:entry_id>')
+@login_required
+def editpost(entry_id=''):
+    form = AddEntryForm()
+    return render_template('editpost.html', form=form, entry_id=entry_id)
+
 @ftf.route('/admin/add-section')
 @login_required
 def addsection():

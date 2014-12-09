@@ -3,10 +3,12 @@
     {% for item in menuitems %}
 		<li><a href="{{ item.url }}">{{ item.name }}</a></li>
 		{% endfor %}
-    {% for posts in notyetpublished %}
-    <li><a href="{{ entry.id }}">{{ entry.title }}</a></li>
+    <h2>Not yet published</h2>
+    {% for entry in notyetpublished %}
+    <li><a href="admin/{{ entry.id }}">{{ entry.title }}</a></li>
     {% endfor %}
-    {% for posts in publishedentries %}
+    <h2>Published</h2>
+    {% for entry in publishedentries %}
     <li><a href="{{ entry.id }}">{{ entry.title }}</a></li>
     {% endfor %}
 {% endblock %}
