@@ -5,7 +5,7 @@
 		{% endfor %}
     <h2>Not yet published</h2>
     {% for entry in notyetpublished %}
-    <li><a href="admin/{{ entry.id }}">{{ entry.title }}</a></li>
+    <li><a href="admin/edit/{{ entry.id }}">{{ entry.title }}</a></li>
     {% endfor %}
     <h2>Published</h2>
     {% for entry in publishedentries %}

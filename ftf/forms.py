@@ -53,3 +53,11 @@ class AddEntryForm(Form):
         title = Entries.query.filter(Entries.title == field.data).first()
         if title is not None:
             raise ValidationError("This title already exists")
+
+class EditEntryForm(Form):
+    id = fields.HiddenField()
+    title = fields.TextField(validators=[InputRequired()])
+    text = fields.TextAreaField(validators=[InputRequired()])
+    status = fields.BooleanField("Publish?")
+    publishedtime = fields.StringField()
+

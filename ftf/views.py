@@ -1,7 +1,7 @@
 from flask import abort, Blueprint, flash, jsonify, Markup, redirect, render_template, request, url_for
 from flask.ext.login import current_user, login_required, login_user, logout_user
 
-from .forms import LoginForm, RegistrationForm, AddEntryForm
+from .forms import LoginForm, RegistrationForm, AddEntryForm, EditEntryForm
 from .models import User, Entries, MenuItems
 from .data import query_to_list, db
 
@@ -41,11 +41,15 @@ def adminpage():
 
     return render_template('admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)
 
-@ftf.route('/admin/<int:entry_id>')
+@ftf.route('/admin/edit/<id>')
 @login_required
-def editpost(entry_id=''):
-    form = AddEntryForm()
-    return render_template('editpost.html', form=form, entry_id=entry_id)
+def editpost(id):
+    entry = Entries.query.get_or_404(id)
+    #return render_template('test.html', entry=entry)
+    form = EditEntryForm(obj=entry)
+    #if form.validate_on_submit():
+    form.populate_obj(entry)
+    return render_template('editpost.html', form=form)
 
 @ftf.route('/admin/add-section')
 @login_required
