@@ -51,11 +51,11 @@ def editpost(id):
         return render_template('editpost.html', form=form)
     if request.method == 'POST':
         entry = Entries.query.filter_by(id=id).first()
-        #entry.text = request.form
         entry.title = request.form['title']
         entry.text = request.form['text']
-        #entry.status = request.form['status']
-        #entry.publishedtime = request.form['publishedtime']
+        entry.publishedtime = request.form['publishedtime']
+        if 'status' in request.form:
+            entry.status = '1'
         #db.session.update(entry)
         db.session.commit()
         flash('Blog post updated')
