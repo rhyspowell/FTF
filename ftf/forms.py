@@ -45,8 +45,6 @@ class AddEntryForm(Form):
     title = fields.TextField(validators=[InputRequired()])
     text = fields.TextAreaField(validators=[InputRequired()])
     status = fields.BooleanField("Publish?")
-    #author = db.Column(db.Integer, db.ForeignKey('users.id'))
-    #author = 1
     publishedtime = fields.StringField()
 
     def validate_title(form, field):

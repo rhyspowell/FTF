@@ -41,15 +41,25 @@ def adminpage():
 
     return render_template('admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)
 
-@ftf.route('/admin/edit/<id>')
+@ftf.route('/admin/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def editpost(id):
-    entry = Entries.query.get_or_404(id)
-    #return render_template('test.html', entry=entry)
-    form = EditEntryForm(obj=entry)
-    #if form.validate_on_submit():
-    form.populate_obj(entry)
-    return render_template('editpost.html', form=form)
+    if request.method == 'GET':
+        entry = Entries.query.get_or_404(id)
+        form = EditEntryForm(obj=entry)
+        form.populate_obj(entry)
+        return render_template('editpost.html', form=form)
+    if request.method == 'POST':
+        entry = Entries.query.filter_by(id=id).first()
+        #entry.text = request.form
+        entry.title = request.form['title']
+        entry.text = request.form['text']
+        #entry.status = request.form['status']
+        #entry.publishedtime = request.form['publishedtime']
+        #db.session.update(entry)
+        db.session.commit()
+        flash('Blog post updated')
+        return redirect(url_for('.adminpage'))
 
 @ftf.route('/admin/add-section')
 @login_required
@@ -101,7 +111,7 @@ def logout():
     return redirect(url_for('.show_entries'))
 
 @ftf.route('/register/', methods=('GET', 'POST'))
-@login_required
+#@login_required
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
