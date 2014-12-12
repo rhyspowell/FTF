@@ -1,7 +1,7 @@
 from flask import abort, Blueprint, flash, jsonify, Markup, redirect, render_template, request, url_for
 from flask.ext.login import current_user, login_required, login_user, logout_user
 
-from .forms import LoginForm, RegistrationForm, AddEntryForm
+from .forms import LoginForm, RegistrationForm, AddEntryForm, EditEntryForm
 from .models import User, Entries, MenuItems
 from .data import query_to_list, db
 
@@ -40,6 +40,26 @@ def adminpage():
     menuitems = MenuItems.query.all()
 
     return render_template('admin.html', publishedentries=publishedentries, notyetpublished=notyetpublished, menuitems=menuitems)
+
+@ftf.route('/admin/edit/<id>', methods=['GET', 'POST'])
+@login_required
+def editpost(id):
+    if request.method == 'GET':
+        entry = Entries.query.get_or_404(id)
+        form = EditEntryForm(obj=entry)
+        form.populate_obj(entry)
+        return render_template('editpost.html', form=form)
+    if request.method == 'POST':
+        entry = Entries.query.filter_by(id=id).first()
+        entry.title = request.form['title']
+        entry.text = request.form['text']
+        entry.publishedtime = request.form['publishedtime']
+        if 'status' in request.form:
+            entry.status = '1'
+        #db.session.update(entry)
+        db.session.commit()
+        flash('Blog post updated')
+        return redirect(url_for('.adminpage'))
 
 @ftf.route('/admin/add-section')
 @login_required
@@ -91,7 +111,7 @@ def logout():
     return redirect(url_for('.show_entries'))
 
 @ftf.route('/register/', methods=('GET', 'POST'))
-@login_required
+#@login_required
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():

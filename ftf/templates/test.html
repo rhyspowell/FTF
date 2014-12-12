@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+  <ul class=entries>
+  <div class="col_11">
+    <h2>{{ entry.id }}</h2>
+  <div class="col_11">
+    <h2>{{ entry.title }}</h2>
+  </div>
+  </a>
+  <div class="col_12">
+    <p>{{ entry.text|safe }}</p>
+  </div>
+  <div class="col_7">
+  </div>
+  <div class="col_5">
+    <p>Published at: {{ entry.publishedtime }}</p>
+  </div>
+  <div class="col_12">
+    <hr class="alt2" />
+  </div>
+  </ul>
+{% endblock %}

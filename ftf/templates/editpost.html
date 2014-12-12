@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% import "helpers/forms.html" as forms %}
+{% block body %}
+  <h1>Sign In</h1>
+  <form action="" method="post" name="editpost">
+      {{ form.hidden_tag() }}
+      <p>
+          title:<br>
+          {{ form.title }}<br>
+          {{ form.text }}<br>
+          {{ form.status }}<br>
+          {{ form.publishedtime }}
+      </p>
+      <p><input type="submit" value="edit"></p>
+  </form>
+{% endblock %}
