@@ -30,6 +30,10 @@ def show_entries(page=1, postlink=''):
 
     return render_template('show_entries.html', entries=entries, pages=pages, menuitems=menuitems, title=title)
 
+@ftf.route('/robots.txt')
+def robots():
+    return render_template('robots.txt')
+
 @ftf.route('/admin')
 @login_required
 def adminpage():
